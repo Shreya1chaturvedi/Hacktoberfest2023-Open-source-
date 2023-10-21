@@ -1,0 +1,53 @@
+class ListNode {
+    int value;
+    ListNode next;
+
+    public ListNode(int value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+public class LinkedList {
+    public static ListNode findNthFromEnd(ListNode head, int N) {
+        if (head == null || N <= 0) {
+            return null;
+        }
+
+        ListNode first = head;
+        ListNode second = head;
+
+        // Move the first pointer N nodes ahead
+        for (int i = 0; i < N; i++) {
+            if (first == null) {
+                return null; // N is greater than the length of the list
+            }
+            first = first.next;
+        }
+
+        // Move both pointers one node at a time until first reaches the end
+        while (first != null) {
+            first = first.next;
+            second = second.next;
+        }
+
+        return second;
+    }
+
+    public static void main(String[] args) {
+        // Create a linked list
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+
+        int N = 2;
+        ListNode result = findNthFromEnd(head, N);
+        if (result != null) {
+            System.out.println("The " + N + "th node from the end is " + result.value);
+        } else {
+            System.out.println("The list is not long enough to find the " + N + "th node from the end.");
+        }
+    }
+}
